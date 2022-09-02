@@ -1,0 +1,27 @@
+{
+  "name": "mapbox-gl-draw-circle-mode",
+  "version": "0.0.1",
+  "description": "A module to draw a circle using mapbox-gl-draw",
+  "main": "index",
+  "scripts": {
+
+  },
+  "keywords": [
+    "mapbox",
+    "geojson",
+    "circle",
+    "mapbox",
+    "draw"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@turf/circle": "^6.0.1",
+    "@turf/distance": "^6.0.1",
+    "@turf/helpers": "^6.1.4",
+    "@turf/length": "^6.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryry886/mapbox-gl-draw-circle-mode"
+  }
+}
