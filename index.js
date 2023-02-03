@@ -76,18 +76,35 @@ onMouseMove:function (state, e) {
     const circleFeature = circle(center, distanceInKm,{
       steps: 16,
     });
-    console.log(circleFeature.geometry.coordinates)
     state.polygon.incomingCoords(circleFeature.geometry.coordinates);
     state.polygon.properties.radiusInKm = distanceInKm;
   }
 },
+onStop: function(state) {
+  doubleClickZoom.enable(this);
+  this.updateUIClasses({ mouse: "none" });
+  this.activateUIButton();
 
-// DragCircleMode.onMouseUp = DragCircleMode.onTouchEnd = function (state, e) {
-//   dragPan.enable(this);
-//   return this.changeMode(Constants.modes.SIMPLE_SELECT, { featureIds: [state.polygon.id] });
-// };
+  // check to see if we've deleted this feature
+  if (this.getFeature(state.polygon.id) === undefined) return;
+
+  //remove last added coordinate
+  if (state.polygon.isValid()) {
+    this.map.fire("draw.create", {
+      features: [state.polygon.toGeoJSON()]
+    });
+  } else {
+    this.deleteFeature([state.polygon.id], { silent: true });
+    this.changeMode("simple_select", {}, { silent: true });
+  }
+},
+onMouseUp:function (state) {
+  dragPan.enable(this);
+  return this.changeMode(Constants.modes.SIMPLE_SELECT, { featureIds: [state.polygon.id] });
+},
 
 onClick:function (state, e) {
+
   const currentCenter = state.polygon.properties.center;
   if (currentCenter.length === 0) {
     return state.polygon.properties.center = [e.lngLat.lng, e.lngLat.lat];

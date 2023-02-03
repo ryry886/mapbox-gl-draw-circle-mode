@@ -21,6 +21,22 @@ const draw = new MapboxDraw({
 draw.changeMode('draw_circle');
 ```
 
+or
+
+```js
+import DrawCircle from 'mapbox-gl-draw-circle-mode';
+const draw = new MapboxDraw({
+
+    modes: {
+      //...MapboxDraw.modes,
+      draw_circle:DrawCircle
+    }
+});
+
+draw.changeMode('draw_circle');
+```
+
+
 ### License
 
 MIT
